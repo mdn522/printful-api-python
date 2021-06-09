@@ -18,10 +18,17 @@ class PrintfulAPI:
         self.session = requests.Session()
         self.session.headers['User-Agent'] = USER_AGENT
 
-    def get(self, path, params: Optional[Dict] = None):
-        params = params or {}
-
+    def get(self, path: str, params: Optional[Dict] = None):
         return self.request('GET', path, params)
+
+    def post(self, path: str, params: Optional[Dict] = None, data: Optional[Dict] = None):
+        return self.request('POST', path, params=params, data=data)
+
+    def delete(self, path: str, params: Optional[Dict] = None):
+        return self.request('DELETE', path, params)
+
+    def put(self, path: str, params: Optional[Dict] = None, data: Optional[Dict] = None):
+        return self.request('PUT', path, params=params, data=data)
 
     def request(self, method: str, path: str, params: Optional[Dict] = None, data: Optional[Dict] = None):
         params = params or {}
