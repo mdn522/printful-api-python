@@ -2,16 +2,16 @@ from typing import Optional, Dict
 import requests
 from rich import print
 from .constants import USER_AGENT
-from .exceptions import InvalidResponse, PrintfulApiException
+from .exceptions import InvalidResponse, PrintfulApiException, PrintfulException
 
 
 class PrintfulAPI:
     key: str
     url = 'https://api.printful.com/'
 
-    def __init__(self, key: Optional[str] = None, response_format: str = 'json'):
-        # TODO [research] I suppose some End points work without API Key. will dig about it later
-        assert not key or len(key) >= 32, 'Invalid Printful store key!'
+    def __init__(self, key: str, response_format: str = 'json'):
+        if len(key) < 32:
+            raise Exception('Invalid Printful store key!')
         self.key = key
         self.response_format = response_format
 
